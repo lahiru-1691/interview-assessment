@@ -28,8 +28,6 @@ run
 npm install or yarn install
 ```
 
-```
-
 after run above command visit to ```http://localhost:3000``` in your browser to see the result.
 
 <br>
