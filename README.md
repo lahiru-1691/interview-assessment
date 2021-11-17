@@ -28,8 +28,6 @@ run
 npm install or yarn install
 ```
 
-```
-
 after run above command visit to ```http://localhost:3000``` in your browser to see the result.
 
 <br>
@@ -38,14 +36,14 @@ after run above command visit to ```http://localhost:3000``` in your browser to 
 ## Application Screenshots - Movie List View
 ### Movie List - Landing Page
 
-![N|Solid]()
+![N|Solid](https://github.com/lahiru-1691/interview-assessment/blob/master/public/screenshots/movie-list.png)
 
 <br>
 <br>
 
 ### Movie Detail View
 
-![N|Solid]()
+![N|Solid](https://github.com/lahiru-1691/interview-assessment/blob/master/public/screenshots/detail-view.png)
 
 <br>
 <br>
