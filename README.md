@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# - Veracity.Dev Interview Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Interview Assesment** is simple (React) base web application which is develop for react interview  assessment 
+## Features
 
-## Available Scripts
+- Landing page with list of movies
+- User can view the movie detail
 
-In the project directory, you can run:
+## Framwork and plugins
 
-### `npm start`
+This application used new technologies for building perfect applications which industry are used.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Name    | Purpose      |Link |
+| ------    |-------------|------ |
+| Reactbootsrap | UI designing | https://react-bootstrap.netlify.app/ |
+| Redux + Redux Saga | State and Side effects Management| https://redux.js.org/ |
+| Axios  | Http client for call APIs| https://axios-http.com/docs/intro |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+- Must have installed [Node.js](https://nodejs.org/) v14+ to run the application.
+- You may use themoviedb.org APIs to retrieve movie list and movie details. Sign Up
+for an account and retrieve the necessary information for the APIs to work.
+or install application's dependencies
+run
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```cmd
+npm install or yarn install
+```
 
-### `npm run build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+after run above command visit to ```http://localhost:3000``` in your browser to see the result.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br>
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Application Screenshots - Movie List View
+### Movie List - Landing Page
 
-### `npm run eject`
+![N|Solid]()
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<br>
+<br>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Movie Detail View
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![N|Solid]()
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br>
+<br>
 
-## Learn More
+## Developer
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Lahiru Perera (Software Engineer)](https://www.linkedin.com/in/lahiru-madhusanka-perera-40287a198/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+<br>
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
