@@ -45,7 +45,7 @@ after run above command visit to ```http://localhost:3000``` in your browser to 
 
 ### Movie Detail View
 
-![N|Solid]()
+![N|Solid](https://github.com/lahiru-1691/interview-assessment/blob/master/public/screenshots/detail-view.png)
 
 <br>
 <br>
