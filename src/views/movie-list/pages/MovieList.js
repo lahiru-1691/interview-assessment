@@ -11,7 +11,7 @@ import { Button, Container } from 'react-bootstrap';
 import { Link, useParams } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
 import SearchInput from "../components/FilterInput";
-import { Form, Row, Col} from "react-bootstrap";
+import { Form, Row, Col, Image} from "react-bootstrap";
 import FilterDropDown from "../components/FilterDropdown";
 import FilterAction from "../../../components/FilterAction";
 
@@ -38,6 +38,8 @@ import FilterAction from "../../../components/FilterAction";
   }, []);
 
   const movies = data.movies;
+
+  const banner = 'https://m.media-amazon.com/images/M/MV5BYzE5MjY1ZDgtMTkyNC00MTMyLThhMjAtZGI5OTE1NzFlZGJjXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg';
 
   const filterElements = [
     {
@@ -121,7 +123,7 @@ import FilterAction from "../../../components/FilterAction";
             movies && movies.length > 0 ?
             movies.map(movie => 
               <tr>
-                <td><ReactBootStrap.Image src="" roundedCircle /></td>
+                <td><Image className="banner" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} rounded /></td>
                 <td>{movie.title}</td>
                 <td>{movie.vote_count}</td>
                 <td>{movie.vote_average}</td>

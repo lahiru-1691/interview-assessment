@@ -9,7 +9,7 @@ const DetailImage = (props) => {
     return (
         <div>
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={banner} />
+                <Card.Img variant="top" src={`https://image.tmdb.org/t/p/original${banner}`} />
             </Card>
         </div>
     );
