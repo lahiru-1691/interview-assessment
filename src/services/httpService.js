@@ -11,11 +11,19 @@ Axios.defaults.headers.get['Content-Type'] = 'application/json';
  * @param requestCancelToken: token for cancel request
  * @returns 
  */
-export const fetch = ({ url, data = null, params = null, method = 'GET', headers = null, requestCancelToken = null }) => {
+export const fetch = ({ 
+    url, 
+    data = null,
+    params = null,
+    method = 'GET', 
+    headers = null, 
+    requestCancelToken = null 
+}) => {
+
     let config: any = {
         headers: {
             'Content-Type': 'application/json'
-        },
+        }
     };
 
     if (requestCancelToken) {
