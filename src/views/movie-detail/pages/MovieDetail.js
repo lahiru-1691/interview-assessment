@@ -50,7 +50,7 @@ export const MovieDetail = ({
                 <Row>
                     <Col md={4}>
                         <Breadcrumbs/>
-                        <DetailImage banner={banner}/>
+                        <DetailImage banner={data?.movieDetail?.poster_path}/>
                     </Col>
                     <Col md={8}>
                         <h3 className="text-left">{data?.movieDetail?.title}</h3> 
