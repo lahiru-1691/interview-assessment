@@ -20,7 +20,11 @@ export function* fetchMovieData({ payload }) {
     // call get movie API
     const movies = yield getMovieList({
       requestCancelToken: payload?.requestCancelToken,
-      filterData:payload?.data,
+      filterTerm:payload?.term,
+      filterGenre:payload?.genre,
+      filterRating:payload?.rating,
+      filterYear:payload?.year,
+      filterOrderby:payload?.orderBy
     });
     // movies reducer call
     if (movies) {

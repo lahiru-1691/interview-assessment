@@ -13,6 +13,9 @@ import { BsEye } from "react-icons/bs";
 import SearchInput from "../components/FilterInput";
 import { Form, Row, Col, Image, Badge} from "react-bootstrap";
 import FilterDropDown from "../components/FilterDropdown";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
   export function MovieList({
     data, 
@@ -22,8 +25,9 @@ import FilterDropDown from "../components/FilterDropdown";
 
   }) {
 
-  const [search, setSearch] = useState('');
-
+  const [search, setSearch]       = useState('');
+  const [startDate, setStartDate] = useState('');
+  
   useEffect(() => {
     // get source for cancel request axios
     const CancelToken = Axios.CancelToken;
@@ -104,88 +108,13 @@ import FilterDropDown from "../components/FilterDropdown";
 
       fetchMovieList({
         requestCancelToken: source.token,
-        data:event.target[0].value
+        term:event.target[0].value,
+        genre:event.target[2].value,
+        rating:event.target[3].value,
+        year:event.target[4].value,
+        orderBy:event.target[5].value,
       });
   }
-
-  // const genresArray = [
-  //   {
-  //       "id": 28,
-  //       "name": "Action"
-  //   },
-  //   {
-  //       "id": 12,
-  //       "name": "Adventure"
-  //   },
-  //   {
-  //       "id": 16,
-  //       "name": "Animation"
-  //   },
-  //   {
-  //       "id": 35,
-  //       "name": "Comedy"
-  //   },
-  //   {
-  //       "id": 80,
-  //       "name": "Crime"
-  //   },
-  //   {
-  //       "id": 99,
-  //       "name": "Documentary"
-  //   },
-  //   {
-  //       "id": 18,
-  //       "name": "Drama"
-  //   },
-  //   {
-  //       "id": 10751,
-  //       "name": "Family"
-  //   },
-  //   {
-  //       "id": 14,
-  //       "name": "Fantasy"
-  //   },
-  //   {
-  //       "id": 36,
-  //       "name": "History"
-  //   },
-  //   {
-  //       "id": 27,
-  //       "name": "Horror"
-  //   },
-  //   {
-  //       "id": 10402,
-  //       "name": "Music"
-  //   },
-  //   {
-  //       "id": 9648,
-  //       "name": "Mystery"
-  //   },
-  //   {
-  //       "id": 10749,
-  //       "name": "Romance"
-  //   },
-  //   {
-  //       "id": 878,
-  //       "name": "Science Fiction"
-  //   },
-  //   {
-  //       "id": 10770,
-  //       "name": "TV Movie"
-  //   },
-  //   {
-  //       "id": 53,
-  //       "name": "Thriller"
-  //   },
-  //   {
-  //       "id": 10752,
-  //       "name": "War"
-  //   },
-  //   {
-  //       "id": 37,
-  //       "name": "Western"
-  //   }
-  // ];
 
   const imageFormatter = (cell, obj) => {
     return (
@@ -263,6 +192,58 @@ import FilterDropDown from "../components/FilterDropdown";
     },
   ];
 
+  const sortValues = [
+    {
+      "id":'popularity.asc',
+      'text':'Popularity Ascending'
+    },
+    {
+      "id":'popularity.desc',
+      'text':'Popularity Descending'
+    },
+    {
+      "id":'release_date.asc',
+      'text':'Release Date Ascending'
+    },
+    {
+      "id":'release_date.desc',
+      'text':'Release Date Descending'
+    },
+    {
+      "id":'revenue.asc',
+      'text':'Revenue Date Ascending'
+    },
+    {
+      "id":'revenue.desc',
+      'text':'Revenue Date Descending'
+    },
+    {
+      "id":'primary_release_date.asc',
+      'text':'Primary Release Date Ascending'
+    }
+  ];
+
+
+  const rating = [
+    {
+      'id':"6.5",
+      'text':"6.5"
+    },
+    {
+      'id':"7.5",
+      'text':"7.5"
+    },
+    {
+      'id':"8.5",
+      'text':"8.5"
+    },
+    {
+      'id':"9.5",
+      'text':"9.5"
+    },
+
+  ];
+
   return (
     <div>
       <div className="container">
@@ -278,24 +259,41 @@ import FilterDropDown from "../components/FilterDropdown";
         <br/>
         <Row>
           <Col xs={3}>
+            <Form.Label>Genre :</Form.Label>
             <Form.Select>
-              <option>Select Genre</option>
+              <option value="">Select</option>
               {genres && genres.map((genre) => (
                 <option value={genre['id']}>{genre['name']}</option>
               ))}
             </Form.Select>
           </Col>
           <Col xs={3}>
+            <Form.Label>Rating :</Form.Label>
             <Form.Select>
-              <option>Select Rating</option>
+              <option value="">Select</option>
+              {rating && rating.map((sort) => (
+                <option value={sort['id']}>{sort['text']}</option>
+              ))}
             </Form.Select>
           </Col>
           <Col xs={3}>
-            <input type="text" id="datepicker" className="form-control" placeholder="Year"/>
+            <Form.Label>Year :</Form.Label>
+            <DatePicker
+              showYearPicker
+              dateFormat="yyyy"
+              selected={startDate}
+              placeholderText="Select Year"
+              className="form-control"
+              onChange={(date) => setStartDate(date)}
+            />
           </Col>
           <Col xs={3}>
-            <Form.Select>
-              <option>Order By</option>
+            <Form.Label>Order By :</Form.Label>
+            <Form.Select >
+              <option value="">Select</option>
+              {sortValues && sortValues.map((sort) => (
+                <option value={sort['id']}>{sort['text']}</option>
+              ))}
             </Form.Select>
           </Col>
         </Row>

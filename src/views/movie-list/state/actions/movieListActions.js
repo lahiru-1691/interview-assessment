@@ -12,7 +12,7 @@
  * @returns object
  */
 
-export const fetchMovieList = ({requestCancelToken, data} = {}) => {
+export const fetchMovieList = ({requestCancelToken, term, genre, rating, year, orderBy} = {}) => {
   
   const payload = [];
 
@@ -20,8 +20,24 @@ export const fetchMovieList = ({requestCancelToken, data} = {}) => {
     payload.requestCancelToken = requestCancelToken;
   }
 
-  if(data){
-    payload.data = data;
+  if(term){
+    payload.term = term;
+  }
+
+  if(genre){
+    payload.genre = genre;
+  }
+
+  if(rating){
+    payload.rating = rating;
+  }
+
+  if(year){
+    payload.year = year;
+  }
+
+  if(orderBy){
+    payload.orderBy = orderBy;
   }
 
   return {
