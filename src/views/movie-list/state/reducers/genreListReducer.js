@@ -4,37 +4,41 @@
  * @date 2021-11-14
  */
 
-import {MovieListActions, GenreActions} from "../constants/movie-actions";
+import {GenreActions} from "../constants/movie-actions";
 
 const initialState = {
-    movies: [],
+  genres: [],
 };
 
 /**
- * movie list reducer
+ * genres list reducer
  * @param state: current state
  * @param {type, payload}: type of action and payload
  * @returns
  */
 
-export const movieListReducer = (state = initialState, { type, payload, error }) => {
+ export const genreListReducer = (state = initialState, { type, payload, error }) => {
   switch (type) {
-    case MovieListActions.FETCH_MOVIES:
+    case GenreActions.FETCH_GENRE:
       return {
         ...state,
       };
-    case MovieListActions.FETCH_MOVIES_SUCCESS:
+    case GenreActions.FETCH_GENRE_SUCCESS:
       return {
         ...state,
-        movies: payload
+        genres: payload
       };
-    case MovieListActions.FETCH_MOVIES_FAIL:
+    case GenreActions.FETCH_GENRE_FAIL:
       return {
         ...state,
-        movies: payload,
+        genres: payload,
         error
       };
     default:
       return state;
   }
 };
+
+
+
+  

@@ -4,7 +4,7 @@
  * @date 2021-11-14
  *
  */
- import {MovieListActions} from '../constants/movie-actions';
+ import {MovieListActions, GenreActions} from '../constants/movie-actions';
 
  /**
  * fetch movies
@@ -12,7 +12,43 @@
  * @returns object
  */
 
-export const fetchMovieList = ({requestCancelToken, data} = {}) => {
+export const fetchMovieList = ({requestCancelToken, term, genre, rating, year, orderBy} = {}) => {
+  
+  const payload = [];
+
+  if (requestCancelToken) {
+    payload.requestCancelToken = requestCancelToken;
+  }
+
+  if(term){
+    payload.term = term;
+  }
+
+  if(genre){
+    payload.genre = genre;
+  }
+
+  if(rating){
+    payload.rating = rating;
+  }
+
+  if(year){
+    payload.year = year;
+  }
+
+  if(orderBy){
+    payload.orderBy = orderBy;
+  }
+
+  return {
+    type: MovieListActions.FETCH_MOVIES,
+    payload: payload
+  }
+
+};
+
+
+export const fetchGenres = ({requestCancelToken, data} = {}) => {
   
   const payload = [];
 
@@ -25,10 +61,13 @@ export const fetchMovieList = ({requestCancelToken, data} = {}) => {
   }
 
   return {
-    type: MovieListActions.FETCH_MOVIES,
+    type: GenreActions.FETCH_GENRE,
     payload: payload
   }
 
 };
+
+
+
 
 

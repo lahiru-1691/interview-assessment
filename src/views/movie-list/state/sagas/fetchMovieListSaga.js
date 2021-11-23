@@ -5,8 +5,8 @@
  */
 
 import { put, takeEvery, all, takeLatest } from 'redux-saga/effects';
-import { MovieListActions } from '../constants/movie-actions';
-import { getMovieList } from '../../services/movieListService';
+import { MovieListActions, GenreActions } from '../constants/movie-actions';
+import { getMovieList, getGenres } from '../../services/movieListService';
 
 
 /**
@@ -20,9 +20,12 @@ export function* fetchMovieData({ payload }) {
     // call get movie API
     const movies = yield getMovieList({
       requestCancelToken: payload?.requestCancelToken,
-      filterData:payload?.data,
+      filterTerm:payload?.term,
+      filterGenre:payload?.genre,
+      filterRating:payload?.rating,
+      filterYear:payload?.year,
+      filterOrderby:payload?.orderBy
     });
-    console.log(movies);
     // movies reducer call
     if (movies) {
       yield put({
@@ -47,12 +50,48 @@ export function* fetchMovieData({ payload }) {
 }
 
 /**
+ * fetch genre data
+ * @param payload
+ * @return generator
+ */
+ export function* fetchGenres({payload}){
+  try {
+
+    // call get genres data API
+    const genres = yield getGenres({
+      requestCancelToken: payload?.requestCancelToken
+    });
+    // genres reducer call
+    if (genres) {
+      yield put({
+        type: GenreActions.FETCH_GENRE_SUCCESS,
+        payload: genres.data || [],
+      });
+    } else {
+      throw {
+        status: false,
+        message: 'something went wrong!',
+        response: genres,
+      };
+    }
+  } catch (error) {
+    // notify error
+    yield put({
+      type: GenreActions.FETCH_GENRE_FAIL,
+      payload: null,
+      error,
+    });
+  }
+ }
+
+/**
  * watch FETCH_MOVIES action for calling fetchMovieData method
  * @return generator
  */
  function* movieListSaga() {
   yield all([
-    takeEvery(MovieListActions.FETCH_MOVIES, fetchMovieData)
+    takeEvery(MovieListActions.FETCH_MOVIES, fetchMovieData),
+    takeEvery(GenreActions.FETCH_GENRE, fetchGenres)
   ]);
 }
 

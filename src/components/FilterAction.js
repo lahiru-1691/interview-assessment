@@ -1,14 +1,10 @@
-/**
- * @author Lahiru Perera
- * @email lahiru.perera1691@gmail.com
- * @date 2021-11-17
- */
 
 import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 export default function FilterAction(props) {
-    const rowGutter = { xs: 8, sm: 8, md: 8, lg: 8 };
+
+    const rowGutter  = { xs: 8, sm: 8, md: 8, lg: 8 };
     const { config } = props;
   
     //const { RangePicker } = DatePicker;
@@ -29,18 +25,18 @@ export default function FilterAction(props) {
 
           return (
             <Form.Group className="mb-3" controlId="formGroupEmail">
-                {/* <Form.Label>{setting.name}</Form.Label> */}
-                    <Form.Control 
-                    type="text"
-                    name={setting.name}
-                    {...properties} 
-                    onChange={(event) =>
-                        props.triggerAction({
-                        config: setting,
-                        action: setting.name,
-                        event: event
-                        })
-                    }/>
+              <Form.Label>{setting.name}</Form.Label>
+              <Form.Control 
+                type="text"
+                name={setting.name}
+                {...properties} 
+                onChange={(event) =>
+                    props.triggerAction({
+                    config: setting,
+                    action: setting.name,
+                    event: event
+                    })
+              }/>
             </Form.Group>
           );
         }
