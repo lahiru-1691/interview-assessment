@@ -4,7 +4,7 @@
  * @date 2021-11-14
  *
  */
- import {MovieListActions} from '../constants/movie-actions';
+ import {MovieListActions, GenreActions} from '../constants/movie-actions';
 
  /**
  * fetch movies
@@ -30,5 +30,28 @@ export const fetchMovieList = ({requestCancelToken, data} = {}) => {
   }
 
 };
+
+
+export const fetchGenres = ({requestCancelToken, data} = {}) => {
+  
+  const payload = [];
+
+  if (requestCancelToken) {
+    payload.requestCancelToken = requestCancelToken;
+  }
+
+  if(data){
+    payload.data = data;
+  }
+
+  return {
+    type: GenreActions.FETCH_GENRE,
+    payload: payload
+  }
+
+};
+
+
+
 
 

@@ -1,8 +1,4 @@
-/**
- * @author Lahiru Dilshan
- * @email lahirudilshan@orelit.com
- * @date 2021-06-11
- */
+
 
 import {
   Button,

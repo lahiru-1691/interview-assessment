@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import Axios from "axios";
-import { fetchMovieList } from "../state/actions/movieListActions";
+import { fetchMovieList, fetchGenres } from "../state/actions/movieListActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -11,16 +11,27 @@ import { Button, Container } from 'react-bootstrap';
 import { Link, useParams } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
 import SearchInput from "../components/FilterInput";
-import { Form, Row, Col, Image} from "react-bootstrap";
+import { Form, Row, Col, Image, Badge} from "react-bootstrap";
 import FilterDropDown from "../components/FilterDropdown";
-import FilterAction from "../../../components/FilterAction";
 
   export function MovieList({
     data, 
-    fetchMovieList
+    fetchMovieList,
+    fetchGenres,
+    gere
+
   }) {
 
-    const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    // get source for cancel request axios
+    const CancelToken = Axios.CancelToken;
+    const source      = CancelToken.source();
+    fetchGenres({
+      requestCancelToken: source.token
+    })
+  }, []);
 
   useEffect(() => {
     // get source for cancel request axios
@@ -31,13 +42,21 @@ import FilterAction from "../../../components/FilterAction";
       requestCancelToken: source.token
     });
 
+    fetchGenres({
+      requestCancelToken: source.token
+    })
+
     return () => {
       // when unmount cancel the request
       source.cancel();
     };
   }, []);
 
+  
+
   const movies = data.movies;
+  const genres = gere?.genres?.genres;
+  
 
   const banner = 'https://m.media-amazon.com/images/M/MV5BYzE5MjY1ZDgtMTkyNC00MTMyLThhMjAtZGI5OTE1NzFlZGJjXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg';
 
@@ -89,6 +108,161 @@ import FilterAction from "../../../components/FilterAction";
       });
   }
 
+  // const genresArray = [
+  //   {
+  //       "id": 28,
+  //       "name": "Action"
+  //   },
+  //   {
+  //       "id": 12,
+  //       "name": "Adventure"
+  //   },
+  //   {
+  //       "id": 16,
+  //       "name": "Animation"
+  //   },
+  //   {
+  //       "id": 35,
+  //       "name": "Comedy"
+  //   },
+  //   {
+  //       "id": 80,
+  //       "name": "Crime"
+  //   },
+  //   {
+  //       "id": 99,
+  //       "name": "Documentary"
+  //   },
+  //   {
+  //       "id": 18,
+  //       "name": "Drama"
+  //   },
+  //   {
+  //       "id": 10751,
+  //       "name": "Family"
+  //   },
+  //   {
+  //       "id": 14,
+  //       "name": "Fantasy"
+  //   },
+  //   {
+  //       "id": 36,
+  //       "name": "History"
+  //   },
+  //   {
+  //       "id": 27,
+  //       "name": "Horror"
+  //   },
+  //   {
+  //       "id": 10402,
+  //       "name": "Music"
+  //   },
+  //   {
+  //       "id": 9648,
+  //       "name": "Mystery"
+  //   },
+  //   {
+  //       "id": 10749,
+  //       "name": "Romance"
+  //   },
+  //   {
+  //       "id": 878,
+  //       "name": "Science Fiction"
+  //   },
+  //   {
+  //       "id": 10770,
+  //       "name": "TV Movie"
+  //   },
+  //   {
+  //       "id": 53,
+  //       "name": "Thriller"
+  //   },
+  //   {
+  //       "id": 10752,
+  //       "name": "War"
+  //   },
+  //   {
+  //       "id": 37,
+  //       "name": "Western"
+  //   }
+  // ];
+
+  const imageFormatter = (cell, obj) => {
+    return (
+      <Image className="banner" src={`https://image.tmdb.org/t/p/original${obj.poster_path}`} rounded />
+    );
+  }
+
+  const linkFormatter = (cell, obj) => {
+    return (
+      <Link to={`/detail/${obj.id}`}><BsEye/></Link>
+    );
+  }
+
+  const yearFormatter = (cell, obj) => {
+    const year = parseInt(obj.release_date);
+    return (
+      <span>{year}</span>
+    );
+  }
+
+  const genreFormatter = (cell, obj) => {
+    return (<div>
+      {genres && genres.map((genre) => (
+        check(genre, obj)?(
+          <span className="tag"><Badge bg="info">{genre['name']}</Badge></span>
+        ):''
+      ))}
+      </div>);
+  }
+
+  const check = (genre, obj) => {
+    if(obj.genre_ids.includes(genre['id'])){
+      return true;
+    }
+    return false;
+  }
+
+  const columns = [
+    {
+      dataField: "id",
+      text: "ID",
+      sort: true,
+      hidden: true
+    },
+    {
+      dataFIled:"poster_path",
+      text:"Image",
+      formatter: imageFormatter
+    },
+    {
+      dataField: "title",
+      text: "Title",
+      sort: true
+    },
+    {
+      dataField: "genre_ids",
+      text: "Genre",
+      sort: true,
+      formatter:genreFormatter
+    },
+    {
+      dataField: "vote_average",
+      text: "Rating",
+      sort: true
+    },
+    {
+      dataField: "release_date",
+      text: "Year",
+      formatter:yearFormatter
+    },
+    {
+      dataField: "",
+      text: "Action",
+      formatter:linkFormatter
+    },
+  ];
+
   return (
     <div>
       <div className="container">
@@ -101,57 +275,58 @@ import FilterAction from "../../../components/FilterAction";
             <button type="submit" className="btn btn btn-primary" >Search</button>
           </Col>
         </Row>
+        <br/>
+        <Row>
+          <Col xs={3}>
+            <Form.Select>
+              <option>Select Genre</option>
+              {genres && genres.map((genre) => (
+                <option value={genre['id']}>{genre['name']}</option>
+              ))}
+            </Form.Select>
+          </Col>
+          <Col xs={3}>
+            <Form.Select>
+              <option>Select Rating</option>
+            </Form.Select>
+          </Col>
+          <Col xs={3}>
+            <input type="text" id="datepicker" className="form-control" placeholder="Year"/>
+          </Col>
+          <Col xs={3}>
+            <Form.Select>
+              <option>Order By</option>
+            </Form.Select>
+          </Col>
+        </Row>
         </form><br/>
-        {/* <FilterAction
-            config={filterElements}
-            triggerAction={filterAction}
-          /> */}
-        {/* </Form> */}
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Genre</th>
-              <th>Rating</th>
-              <th>Year</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          {
-            movies && movies.length > 0 ?
-            movies.map(movie => 
-              <tr>
-                <td><Image className="banner" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} rounded /></td>
-                <td>{movie.title}</td>
-                <td>{movie.vote_count}</td>
-                <td>{movie.vote_average}</td>
-                <td>{movie.release_date}</td>
-                <td><Link to={`/detail/${movie.id}`}><BsEye/></Link></td>
-              </tr>
-            ):'loading...'
-          }
-          </tbody>
-        </Table>
-        {/* {columns && data.movies? (
-          <BootstrapTable keyField='id' columns={columns} data={data.movies}/>
-        ):'Loading'} */}
+        
+        {columns && data.movies? (
+        <BootstrapTable
+          keyField="id"
+          data={movies}
+          columns={columns}
+          pagination={paginationFactory({ sizePerPage: 5 })}
+        />
+        ):'Loading'}
       </div>
     </div>
   );
 };
 
 MovieList.prototype = {
-  fetchMovieList: PropTypes.func.isRequired
+  fetchMovieList: PropTypes.func.isRequired,
+  fetchGenres:PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
-    data: state.movieList
+    data: state.movieList,
+    gere: state.genre
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchMovieList
+  fetchMovieList,
+  fetchGenres
 })(MovieList);
